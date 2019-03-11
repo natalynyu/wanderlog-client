@@ -9,13 +9,17 @@ import apiUrl from '../../apiConfig'
 import axios from 'axios'
 
 class CreateItinerary extends Component {
-  constructor () {
-    super()
-
+  constructor (props) {
+    super(props)
     this.state = {
-      itineraryTitle: '',
       locations: []
     }
+  }
+
+  add () {
+    this.setState((state, props) => {
+      return { locations: [...state.locations, {}] }
+    })
   }
 
   handleChange = event => this.setState({
@@ -57,33 +61,70 @@ class CreateItinerary extends Component {
 
   render () {
     const {
-      itineraryTitle,
-      locations
+      itineraryTitle
     } = this.state
 
     return (
-      <form className='create-itinerary-form' onSubmit={this.onCreateItinerary}>
-        <h3>Create a New Itinerary</h3>
-        <label htmlFor="machine">Itinerary Title</label>
-        <input
-          required
-          name="itineraryTitle"
-          value={itineraryTitle}
-          type="text"
-          placeholder="Title"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="locationName">Location Name</label>
-        <input
-          required
-          name="locations"
-          value={locations}
-          type="text"
-          placeholder="Location"
-          onChange={this.handleChange}
-        />
-        <button type="submit">Create Itinerary</button>
-      </form>
+      <React.Fragment>
+        <h3>New Itinerary</h3>
+        <form className='create-itinerary-form' onSubmit={this.onCreateItinerary}>
+          <label htmlFor="itineraryTitle">Itinerary Name</label>
+          <input
+            required
+            name="itineraryTitle"
+            value={itineraryTitle}
+            type="text"
+            placeholder="Hidden Gems of Rome"
+            onChange={this.handleChange}
+          />
+          <div>
+            <label htmlFor="locationName">Location Name: </label>
+            <input
+              required
+              name="location"
+              value={location.name}
+              type="text"
+              placeholder="Location Name"
+              onChange={this.handleChange}
+            />
+            <label htmlFor="locationName">Address: </label>
+            <input
+              required
+              name="address"
+              value={location.address}
+              type="text"
+              placeholder="Location Address"
+              onChange={this.handleChange}
+            />
+          </div>
+          {this.state.locations.map(location =>
+            <div key={location.id}>
+              <label htmlFor="locationName">Location Name:</label>
+              <input
+                required
+                name="location"
+                value={location.name}
+                type="text"
+                placeholder="Location Name"
+                onChange={this.handleChange}
+              />
+              <label htmlFor="locationName">Address:</label>
+              <input
+                required
+                name="address"
+                value={location.address}
+                type="text"
+                placeholder="Location Address"
+                onChange={this.handleChange}
+              />
+            </div>
+          )}
+          <React.Fragment>
+            <button type="button" onClick={this.add}>Add a location</button>
+            <button type="submit">Create Itinerary</button>
+          </React.Fragment>
+        </form>
+      </React.Fragment>
     )
   }
 }

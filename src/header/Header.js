@@ -25,14 +25,16 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <header className="main-header">
-    <h1>Wanderlog</h1>
-    <nav>
-      { user && <span>Welcome, {user.email}</span>}
-      { user ? authenticatedOptions : unauthenticatedOptions }
-      { alwaysOptions }
-    </nav>
-  </header>
+  <React.Fragment>
+    <header className="main-header">
+      <h1>Wanderlog</h1>
+      <nav>
+        { user && <span>Welcome, {user.email}</span>}
+        { user ? authenticatedOptions : unauthenticatedOptions }
+        { alwaysOptions }
+      </nav>
+    </header>
+  </React.Fragment>
 )
 
 export default Header
