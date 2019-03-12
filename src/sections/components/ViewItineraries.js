@@ -5,6 +5,7 @@ import { viewItineraries } from '../api'
 import messages from '../messages'
 
 import './ViewItineraries.scss'
+import Button from 'react-bootstrap/Button'
 
 class ViewItineraries extends Component {
   constructor (props) {
@@ -49,6 +50,12 @@ class ViewItineraries extends Component {
                 </Fragment>
               ))}
             </table>
+            { this.props.user._id === itinerary.owner
+              ? <Fragment>
+                <Button className="edit-button" variant="outline-info">Edit</Button>
+                <Button className="delete-button" variant="outline-danger">Delete</Button>
+              </Fragment> : ''
+            }
           </Fragment>
         ))}
       </Fragment>
