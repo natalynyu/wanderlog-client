@@ -13,7 +13,7 @@ class ViewItineraries extends Component {
   }
 
   componentDidMount () {
-    const { history } = this.props
+    const { history, alert } = this.props
     viewItineraries(this.props.user)
       .then(response => this.setState({ itineraries: response.data.itineraries }))
       .then(() => alert(messages.viewItinerariesSuccess, 'success'))
@@ -33,8 +33,8 @@ class ViewItineraries extends Component {
         {this.state.itineraries.map((itinerary) => (
           <Fragment key={itinerary._id}>
             <h5>{itinerary.title}</h5>
-            <p>{itinerary.locations[0].name}</p>
-            <p>{itinerary.locations[0].address}</p>
+            <p>Destination: {itinerary.locations[0].name}</p>
+            <p>Address: {itinerary.locations[0].address}</p>
           </Fragment>
         ))}
       </Fragment>
