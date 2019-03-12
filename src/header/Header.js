@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import './Header.scss'
+import logo from '../css/suitcase.png'
 
 const authenticatedOptions = (
   <React.Fragment>
@@ -29,6 +30,7 @@ const Header = ({ user }) => (
   <React.Fragment>
     <header className="main-header">
       <h1>Wanderlog</h1>
+      <img className="logo" src={logo} alt="Logo" />
       <nav>
         { user && <span>Welcome, {user.email}</span>}
         { user ? authenticatedOptions : unauthenticatedOptions }
