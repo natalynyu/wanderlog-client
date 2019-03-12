@@ -1,16 +1,24 @@
 $charcoal: #bbb;
+$light-blue: #9cf0f2;
+$white: #fff;
+$black: #000;
 
 .main-header {
   align-items: center;
-  border-bottom: 1px solid $charcoal;
+  background-color: $light-blue;
+  color: $white;
   display: flex;
   height: 100px;
+  margin-bottom: 10px;
   padding: 0 20px;
+  text-shadow: -5px 0 $black, 0 2px black, 1px 0 $black, 0 -1px $black;
 
   a,
   span {
+    color: $white;
     font-size: 1.2em;
     margin: 0 15px;
+    text-shadow: -1px 0 $black, 0 1px $black, 1px 0 black, 0 -1px $black;
   }
 }
 
@@ -24,7 +32,7 @@ $charcoal: #bbb;
 @media (max-width: 600px) {
   .main-header {
     flex-direction: column;
-    font-size: 0.7em;
+    font-size: .7em;
     height: auto;
     padding: 10px;
 
