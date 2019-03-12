@@ -1,26 +1,20 @@
 import React, { Component, Fragment } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import { viewItineraries } from '../api'
 import messages from '../messages'
 
-import apiUrl from '../../apiConfig'
-import axios from 'axios'
-
 class ViewItineraries extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       locations: ''
     }
   }
 
   componentDidMount () {
-    axios({
-      url: apiUrl + '/itineraries',
-      method: 'get'
-    })
-    viewItineraries(this.state)
+    const { history } = this.props
+    viewItineraries(this.props.user)
       .then(response => this.setState({ itineraries: response.data.itineraries }))
       .then(() => alert(messages.viewItinerariesSuccess, 'success'))
       .then(() => history.push('/itineraries'))
@@ -36,13 +30,13 @@ class ViewItineraries extends Component {
     return (
       <Fragment>
         <h3>Itineraries</h3>
-        <ul>
-          {this.state.itinerary.map((itinerary) => (
-            <li key={itinerary.id}>
-              <Link to={`/itineraries/${itinerary.id}`}>{itinerary.locations.name}</Link>
-            </li>
-          ))}
-        </ul>
+        {this.state.itineraries.map((itinerary) => (
+          <Fragment key={itinerary._id}>
+            <h5>{itinerary.title}</h5>
+            <p>{itinerary.locations[0].name}</p>
+            <p>{itinerary.locations[0].address}</p>
+          </Fragment>
+        ))}
       </Fragment>
     )
   }
