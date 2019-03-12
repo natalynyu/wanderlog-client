@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom'
 import { viewItineraries } from '../api'
 import messages from '../messages'
 
+import './ViewItineraries.scss'
+
 class ViewItineraries extends Component {
   constructor (props) {
     super(props)
@@ -33,8 +35,20 @@ class ViewItineraries extends Component {
         {this.state.itineraries.map((itinerary) => (
           <Fragment key={itinerary._id}>
             <h5>{itinerary.title}</h5>
-            <p>Destination: {itinerary.locations[0].name}</p>
-            <p>Address: {itinerary.locations[0].address}</p>
+            <table className="itinerary-table">
+              <tr>
+                <th>Destination</th>
+                <th>Address</th>
+              </tr>
+              {itinerary.locations.map((location) => (
+                <Fragment key={location._id}>
+                  <tr>
+                    <td>{location.name}</td>
+                    <td>{location.address}</td>
+                  </tr>
+                </Fragment>
+              ))}
+            </table>
           </Fragment>
         ))}
       </Fragment>
