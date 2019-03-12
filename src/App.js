@@ -10,6 +10,7 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
 import CreateItinerary from './sections/components/CreateItinerary'
+import ViewItineraries from './sections/components/ViewItineraries'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -59,6 +60,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/create-itinerary' render={() => (
             <CreateItinerary alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/itineraries' render={() => (
+            <ViewItineraries alert={this.alert} user={user} />
           )} />
         </main>
       </React.Fragment>
