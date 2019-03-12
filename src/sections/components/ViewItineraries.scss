@@ -1,0 +1,12 @@
+$black: #000;
+
+.itinerary-table,
+td,
+th,
+tr {
+  border: 1px solid $black;
+  border-collapse: collapse;
+  border-spacing: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
