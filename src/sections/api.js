@@ -1,16 +1,24 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const createItinerary = credentials => {
+export const createItinerary = (state, user) => {
+  console.log(user)
   return axios({
     method: 'POST',
     url: apiUrl + '/create-itinerary',
-    data: {
-      credentials: {
-        email: credentials.email,
-        password: credentials.password,
-        password_confirmation: credentials.passwordConfirmation
-      }
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: { itinerary: state }
+  })
+}
+
+export const viewItineraries = user => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/itineraries',
+    headers: {
+      'Authorization': `Token token=${user.token}`
     }
   })
 }
