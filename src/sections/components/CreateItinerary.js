@@ -5,26 +5,60 @@ import { withRouter } from 'react-router-dom'
 import { createItinerary } from '../api'
 import messages from '../messages'
 
-import apiUrl from '../../apiConfig'
-import axios from 'axios'
+import Button from 'react-bootstrap/Button'
 
 class CreateItinerary extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      locations: []
+      title: '',
+      locations: [this.createRow()],
+      failed: false
     }
+    this.add = this.add.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  createRow () {
+    return { id: String(Date.now()), name: '', address: '' }
   }
 
   add () {
     this.setState((state, props) => {
-      return { locations: [...state.locations, {}] }
+      return { locations: [...state.locations, this.createRow()] }
     })
   }
 
-  handleChange = event => this.setState({
-    [event.target.name]: event.target.value
-  })
+  handleChange (event) {
+    const target = event.target
+    this.setState(function (state) {
+      // copy old state
+      const newState = {
+        title: state.title,
+        locations: state.locations.map(location => {
+          return { ...location }
+        })
+      }
+      // update (new) state based on what input was updated
+      switch (target.name) {
+      case 'name':
+      case 'address':
+        const id = target.getAttribute('data-id')
+        for (let i = 0; i < newState.locations.length; i++) {
+          const location = newState.locations[i]
+          if (id === location.id) {
+            location[target.name] = target.value
+            break
+          }
+        }
+        break
+      default:
+        newState[target.name] = target.value
+        break
+      }
+      return newState
+    })
+  }
 
   onCreateItinerary = event => {
     event.preventDefault()
@@ -35,17 +69,6 @@ class CreateItinerary extends Component {
       user
     } = this.props
 
-    axios({
-      url: apiUrl + '/movies',
-      method: 'post',
-      data: {
-        itinerary: {
-          title: this.state.itineraryTitle,
-          locations: this.state.locations
-        }
-      }
-    })
-
     createItinerary(this.state, user)
       .then(() => alert(messages.createItinerarySuccess, 'success'))
       .then(() => history.push('/create-itinerary'))
@@ -53,7 +76,7 @@ class CreateItinerary extends Component {
         console.error(error)
         alert(messages.createItineraryFailure, 'danger')
         this.setState({
-          itineraryTitle: '',
+          title: '',
           locations: []
         })
       })
@@ -61,67 +84,59 @@ class CreateItinerary extends Component {
 
   render () {
     const {
-      itineraryTitle
+      title
     } = this.state
 
     return (
       <React.Fragment>
         <h3>New Itinerary</h3>
         <form className='create-itinerary-form' onSubmit={this.onCreateItinerary}>
-          <label htmlFor="itineraryTitle">Itinerary Name</label>
+          <label htmlFor="title">List Name</label>
           <input
             required
-            name="itineraryTitle"
-            value={itineraryTitle}
+            name="title"
+            value={title}
             type="text"
-            placeholder="Hidden Gems of Rome"
+            placeholder="Best Cliff Diving Spots"
             onChange={this.handleChange}
           />
-          <div>
-            <label htmlFor="locationName">Location Name: </label>
-            <input
-              required
-              name="location"
-              value={location.name}
-              type="text"
-              placeholder="Location Name"
-              onChange={this.handleChange}
-            />
-            <label htmlFor="locationName">Address: </label>
-            <input
-              required
-              name="address"
-              value={location.address}
-              type="text"
-              placeholder="Location Address"
-              onChange={this.handleChange}
-            />
-          </div>
-          {this.state.locations.map(location =>
-            <div key={location.id}>
-              <label htmlFor="locationName">Location Name:</label>
-              <input
-                required
-                name="location"
-                value={location.name}
-                type="text"
-                placeholder="Location Name"
-                onChange={this.handleChange}
-              />
-              <label htmlFor="locationName">Address:</label>
-              <input
-                required
-                name="address"
-                value={location.address}
-                type="text"
-                placeholder="Location Address"
-                onChange={this.handleChange}
-              />
-            </div>
-          )}
+          <table>
+            <tbody>
+              {this.state.locations.map(location =>
+                <tr key={location.id}>
+                  <td>
+                    <label>Location Name:
+                      <input
+                        required
+                        name="name"
+                        value={location.name}
+                        type="text"
+                        placeholder="Location Name"
+                        onChange={this.handleChange}
+                        data-id={location.id}
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label >Address:
+                      <input
+                        required
+                        name="address"
+                        value={location.address}
+                        type="text"
+                        placeholder="Location Address"
+                        onChange={this.handleChange}
+                        data-id={location.id}
+                      />
+                    </label>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
           <React.Fragment>
-            <button type="button" onClick={this.add}>Add a location</button>
-            <button type="submit">Create Itinerary</button>
+            <Button variant="outline-primary" onClick={this.add}>Add a location</Button>
+            <Button variant="outline-primary" type="submit">Create Itinerary</Button>
           </React.Fragment>
         </form>
       </React.Fragment>
