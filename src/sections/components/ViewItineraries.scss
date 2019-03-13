@@ -1,13 +1,11 @@
 $black: #000;
 
 .edit-button {
-  margin-bottom: 20px;
   margin-right: 5px;
   margin-top: 4px;
 }
 
 .delete-button {
-  margin-bottom: 20px;
   margin-top: 4px;
 }
 
@@ -21,4 +19,13 @@ $black: #000;
     margin-bottom: 3px;
     padding: 10px;
   }
+}
+
+.view-itineraries-section {
+  margin-top: 60px;
+  margin-left: 80px;
+}
+
+h5 {
+  margin-top: 1.5rem;
 }
