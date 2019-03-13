@@ -1,16 +1,10 @@
-.create-itinerary-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 3% auto 0;
-  max-width: 600px;
-}
-
 .pictures {
+  display: flex;
+  flex: auto;
   bottom: 30px;
   display: flex;
-  height: 100vh;
-  max-height: 340px;
+  height: 10vh;
+  max-height: 100px;
   overflow: hidden;
   position: fixed;
   img {

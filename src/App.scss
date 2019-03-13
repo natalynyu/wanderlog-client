@@ -29,11 +29,11 @@ $charcoal: #ccc;
   background-color: $error;
 }
 
-.auth-form {
+.auth-form, .create-itinerary-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 15% auto 0;
+  margin: 3% auto 0;
   max-width: 600px;
 
   h3,
@@ -45,4 +45,14 @@ $charcoal: #ccc;
     align-self: flex-end;
     max-width: 200px;
   }
+}
+
+.display-page {
+  margin-left: 100px;
+  margin-right: 100px;
+  padding-bottom: 200px;
+}
+
+.with-pictures {
+  padding-bottom: 250px;
 }

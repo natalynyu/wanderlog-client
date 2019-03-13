@@ -1,10 +1,25 @@
-.balloon,
-.cherry {
-  height: 300px;
-  width: 432px;
+body {
+  padding-bottom: 200px;
 }
 
-.snow {
-  height: 300px;
-  width: 245px;
+.welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5% auto 0;
+  max-width: 700px;
+}
+
+.pictures {
+  bottom: 30px;
+  display: flex;
+  height: 100vh;
+  max-height: 340px;
+  overflow: hidden;
+  position: fixed;
+  img {
+    object-fit: cover;
+    object-position: center;
+    width: calc(100% / 6);
+  }
 }
