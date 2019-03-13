@@ -1,0 +1,13 @@
+$black: #000;
+$light-blue: #9cf0f2;
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: $light-blue;
+   color: white;
+   text-align: center;
+   text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black, 1px 1px 0 $black;
+
+}
