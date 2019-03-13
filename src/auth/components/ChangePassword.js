@@ -5,6 +5,7 @@ import { changePassword } from '../api'
 import messages from '../messages'
 
 import './Pictures.scss'
+import Button from 'react-bootstrap/Button'
 
 import pic33 from '../../css/33.png'
 import pic34 from '../../css/34.png'
@@ -66,7 +67,7 @@ class ChangePassword extends Component {
             placeholder="New Password"
             onChange={this.handleChange}
           />
-          <button type="submit">Change Password</button>
+          <Button variant="outline-primary" type="submit">Change Password</Button>
         </form>
         <section className="pictures">
           <img className="pic33" src={pic33} alt="pic33" />
