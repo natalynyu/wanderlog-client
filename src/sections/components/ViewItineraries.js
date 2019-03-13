@@ -8,6 +8,13 @@ import messages from '../messages'
 import './ViewItineraries.scss'
 import Button from 'react-bootstrap/Button'
 
+import pic27 from '../../css/27.png'
+import pic28 from '../../css/28.png'
+import pic29 from '../../css/29.png'
+import pic30 from '../../css/30.png'
+import pic31 from '../../css/31.png'
+import pic32 from '../../css/32.png'
+
 class ViewItineraries extends Component {
   constructor (props) {
     super(props)
@@ -74,37 +81,47 @@ class ViewItineraries extends Component {
     }
     return (
       <Fragment>
-        <h3>Itineraries</h3>
-        {this.state.itineraries.map(itinerary => (
-          this.state.editing === itinerary._id
-            ? <ItineraryEdit key={itinerary._id} itinerary={itinerary} user={this.props.user} alert={this.props.alert}
-              onSuccess={this.onEditSuccess} />
-            : <Fragment key={itinerary._id}>
-              <h5>{itinerary.title}</h5>
-              <table className="itinerary-table">
-                <tbody>
-                  <tr>
-                    <th>Destination</th>
-                    <th>Address</th>
-                  </tr>
-                  {itinerary.locations.map((location) => (
-                    <Fragment key={location._id}>
-                      <tr>
-                        <td>{location.name}</td>
-                        <td>{location.address}</td>
-                      </tr>
-                    </Fragment>
-                  ))}
-                </tbody>
-              </table>
-              {this.props.user._id === itinerary.owner
-                ? <Fragment>
-                  <Button className="edit-button" variant="outline-info" onClick={this.onEditItinerary.bind(this, itinerary._id)}>Edit</Button>
-                  <Button className="delete-button" variant="outline-danger" onClick={this.onDeleteItinerary.bind(this, itinerary._id)}>Delete</Button>
-                </Fragment> : ''
-              }
-            </Fragment>
-        ))}
+        <section className="view-itineraries-section">
+          <h3>Itineraries</h3>
+          {this.state.itineraries.map(itinerary => (
+            this.state.editing === itinerary._id
+              ? <ItineraryEdit key={itinerary._id} itinerary={itinerary} user={this.props.user} alert={this.props.alert}
+                onSuccess={this.onEditSuccess} />
+              : <Fragment key={itinerary._id}>
+                <h5>{itinerary.title}</h5>
+                <table className="itinerary-table">
+                  <tbody>
+                    <tr>
+                      <th>Destination</th>
+                      <th>Address</th>
+                    </tr>
+                    {itinerary.locations.map((location) => (
+                      <Fragment key={location._id}>
+                        <tr>
+                          <td>{location.name}</td>
+                          <td>{location.address}</td>
+                        </tr>
+                      </Fragment>
+                    ))}
+                  </tbody>
+                </table>
+                {this.props.user._id === itinerary.owner
+                  ? <Fragment>
+                    <Button className="edit-button" variant="outline-info" onClick={this.onEditItinerary.bind(this, itinerary._id)}>Edit</Button>
+                    <Button className="delete-button" variant="outline-danger" onClick={this.onDeleteItinerary.bind(this, itinerary._id)}>Delete</Button>
+                  </Fragment> : ''
+                }
+              </Fragment>
+          ))}
+        </section>
+        <section className="pictures">
+          <img src={pic27} alt="pic27" />
+          <img src={pic28} alt="pic28" />
+          <img src={pic29} alt="pic29" />
+          <img src={pic30} alt="pic30" />
+          <img src={pic31} alt="pic31" />
+          <img src={pic32} alt="pic32" />
+        </section>
       </Fragment>
     )
   }

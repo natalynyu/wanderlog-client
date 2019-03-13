@@ -7,6 +7,13 @@ import messages from '../messages'
 
 import Button from 'react-bootstrap/Button'
 
+import pic21 from '../../css/21.png'
+import pic22 from '../../css/22.png'
+import pic23 from '../../css/23.png'
+import pic24 from '../../css/24.png'
+import pic25 from '../../css/25.png'
+import pic26 from '../../css/26.png'
+
 class CreateItinerary extends Component {
   constructor (props) {
     super(props)
@@ -65,10 +72,12 @@ class CreateItinerary extends Component {
 
     const {
       alert,
-      user
+      user,
+      history
     } = this.props
 
     createItinerary(this.state, user)
+      .then(() => history.push('/itineraries'))
       .then(() => alert(messages.createItinerarySuccess, 'success'))
       .catch(error => {
         console.error(error)
@@ -87,9 +96,9 @@ class CreateItinerary extends Component {
     let locationId = 1
     return (
       <React.Fragment>
-        <h3>New Itinerary</h3>
         <form className='create-itinerary-form' onSubmit={this.onCreateItinerary}>
-          <label htmlFor="title">List Name</label>
+          <h3>New Itinerary</h3>
+          <label htmlFor="title">Itinerary Title</label>
           <input
             required
             name="title"
@@ -130,13 +139,21 @@ class CreateItinerary extends Component {
                   </td>
                 </tr>
               )}
+              <Button variant="outline-secondary" onClick={this.add}>Add a location</Button>
             </tbody>
           </table>
           <React.Fragment>
-            <Button variant="outline-primary" onClick={this.add}>Add a location</Button>
             <Button variant="outline-primary" type="submit">Create Itinerary</Button>
           </React.Fragment>
         </form>
+        <section className="pictures">
+          <img src={pic21} alt="pic21" />
+          <img src={pic22} alt="pic22" />
+          <img src={pic23} alt="pic23" />
+          <img src={pic24} alt="pic24" />
+          <img src={pic26} alt="pic26" />
+          <img src={pic25} alt="pic25" />
+        </section>
       </React.Fragment>
     )
   }

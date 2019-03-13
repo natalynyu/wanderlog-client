@@ -47,7 +47,7 @@ class App extends Component {
             </Alert.Heading>
           </Alert>
         ))}
-        <main className="container">
+        <main className="with-pictures">
           <Route exact path='/' render={() => (
             <Home />
           )} />
@@ -57,11 +57,11 @@ class App extends Component {
           <Route path='/sign-in' render={() => (
             <SignIn alert={this.alert} setUser={this.setUser} />
           )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
-          )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+            <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/create-itinerary' render={() => (
             <CreateItinerary alert={this.alert} user={user} />
