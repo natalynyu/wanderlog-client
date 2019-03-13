@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 
-import { viewItineraries } from '../api'
+import { viewItineraries, deleteItinerary } from '../api'
 import messages from '../messages'
 
 import './ViewItineraries.scss'
@@ -13,6 +13,29 @@ class ViewItineraries extends Component {
     this.state = {
       locations: ''
     }
+    this.onDeleteItinerary = this.onDeleteItinerary.bind(this)
+  }
+
+  onDeleteItinerary = (id, event) => {
+    event.preventDefault()
+
+    const {
+      alert,
+      history,
+      user
+    } = this.props
+
+    deleteItinerary(user, id)
+      .then(() => this.setState(prevState => {
+        // filter itineraries array to keep itineraries where id is not equal to the one we deleted - id is the one we deleted
+        return { itineraries: prevState.itineraries.filter(itinerary => itinerary._id !== id) }
+      }))
+      .then(() => alert(messages.deleteItinerarySuccess, 'success'))
+      .then(() => history.push('/itineraries'))
+      .catch(error => {
+        console.error(error)
+        alert(messages.deleteItineraryFailure, 'danger')
+      })
   }
 
   componentDidMount () {
@@ -53,7 +76,7 @@ class ViewItineraries extends Component {
             { this.props.user._id === itinerary.owner
               ? <Fragment>
                 <Button className="edit-button" variant="outline-info">Edit</Button>
-                <Button className="delete-button" variant="outline-danger">Delete</Button>
+                <Button className="delete-button" variant="outline-danger" onClick={this.onDeleteItinerary.bind(this, itinerary._id)}>Delete</Button>
               </Fragment> : ''
             }
           </Fragment>

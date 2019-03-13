@@ -22,3 +22,13 @@ export const viewItineraries = user => {
     }
   })
 }
+
+export const deleteItinerary = (user, id) => {
+  return axios({
+    method: 'DELETE',
+    url: apiUrl + `/itineraries/${id}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    }
+  })
+}
