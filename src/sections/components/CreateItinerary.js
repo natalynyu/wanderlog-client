@@ -65,13 +65,11 @@ class CreateItinerary extends Component {
 
     const {
       alert,
-      history,
       user
     } = this.props
 
     createItinerary(this.state, user)
       .then(() => alert(messages.createItinerarySuccess, 'success'))
-      .then(() => history.push('/create-itinerary'))
       .catch(error => {
         console.error(error)
         alert(messages.createItineraryFailure, 'danger')
@@ -86,7 +84,7 @@ class CreateItinerary extends Component {
     const {
       title
     } = this.state
-
+    let locationId = 1
     return (
       <React.Fragment>
         <h3>New Itinerary</h3>
@@ -103,7 +101,7 @@ class CreateItinerary extends Component {
           <table>
             <tbody>
               {this.state.locations.map(location =>
-                <tr key={location.id}>
+                <tr key={locationId++}>
                   <td>
                     <label>Location Name:
                       <input
