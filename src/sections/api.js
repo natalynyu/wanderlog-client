@@ -32,3 +32,14 @@ export const deleteItinerary = (user, id) => {
     }
   })
 }
+
+export const updateItinerary = (itinerary, user, id) => {
+  return axios({
+    method: 'PATCH',
+    url: apiUrl + `/itineraries/${id}`,
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: { itinerary }
+  })
+}
