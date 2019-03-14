@@ -12,10 +12,10 @@ const Location = ({ text }) => (
 class Map extends Component {
   static defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: 42.35,
+      lng: -71.0574
     },
-    zoom: 11
+    zoom: 5
   };
 
   render () {
