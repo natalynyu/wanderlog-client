@@ -67,7 +67,7 @@ class CreateItinerary extends Component {
     })
   }
 
-  onCreateItinerary = event => {
+  onCreateItinerary (event) {
     event.preventDefault()
 
     const {
@@ -96,12 +96,12 @@ class CreateItinerary extends Component {
     let locationId = 1
     return (
       <React.Fragment>
-        <form className='create-itinerary-form' onSubmit={this.onCreateItinerary}>
+        <form className='create-itinerary-form' onSubmit={this.onCreateItinerary.bind(this)}>
           <h3>New Itinerary</h3>
           <label htmlFor="title">Itinerary Title</label>
           <input
             required
-            name="title"
+                name="title"
             value={title}
             type="text"
             placeholder="Best Cliff Diving Spots"
