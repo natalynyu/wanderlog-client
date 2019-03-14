@@ -5,6 +5,40 @@ import messages from '../messages'
 
 import Button from 'react-bootstrap/Button'
 
+import GoogleMapsLoader from 'google-maps'
+GoogleMapsLoader.KEY = process.env.GOOGLE_API_KEY
+
+let _google = null
+
+function getGoogle () {
+  return new Promise((resolve, reject) => {
+    if (_google != null) {
+      resolve(_google)
+      return
+    }
+    GoogleMapsLoader.load(function (google) {
+      _google = google
+      resolve(_google)
+    })
+  })
+}
+
+function translateAddress (address) {
+  return new Promise(async (resolve, reject) => {
+    const google = await getGoogle()
+    const geocoder = new google.maps.Geocoder()
+    // geocoder.geocode makes an AJAX request - we give it a callback function
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status !== 'OK') {
+        reject(new Error(`Failed to translate address: status: ${status}`))
+        return
+      }
+      const location = results[0].geometry.location
+      resolve({ latitude: location.lat(), longitude: location.lng() })
+    })
+  })
+}
+
 class ItineraryEdit extends Component {
   constructor (props) {
     super(props)
@@ -54,8 +88,6 @@ class ItineraryEdit extends Component {
         for (let i = 0; i < newState.itinerary.locations.length; i++) {
           const location = newState.itinerary.locations[i]
           if (id === location._id || id === location.id) {
-            console.log(target.name)
-            console.log(target.value)
             location[target.name] = target.value
             break
           }
@@ -69,7 +101,7 @@ class ItineraryEdit extends Component {
     })
   }
 
-  onSubmitEdit = event => {
+  async onSubmitEdit (event) {
     event.preventDefault()
 
     const {
@@ -77,18 +109,23 @@ class ItineraryEdit extends Component {
       user
     } = this.props
 
-    updateItinerary(this.state.itinerary, user, this.props.itinerary._id)
-      .then(() => this.props.onSuccess(this.state.itinerary))
+    const itinerary = {}
+    itinerary.title = this.state.itinerary.title
+    itinerary.locations = this.state.itinerary.locations
+      .filter(location => location.name !== '' || location.address !== '')
+    for (const location of itinerary.locations) {
+      if (!location.latitude && !location.longitude) {
+        const coords = await translateAddress(location.address)
+        location.latitude = coords.latitude
+        location.longitude = coords.longitude
+      }
+    }
+    updateItinerary(itinerary, user, this.props.itinerary._id)
+      .then(() => this.props.onSuccess(itinerary))
       .then(() => alert(messages.updateItinerarySuccess, 'success'))
       .catch(error => {
         console.error(error)
         alert(messages.updateItineraryFailure, 'danger')
-        this.setState({
-          itinerary: {
-            title: '',
-            locations: []
-          }
-        })
       })
   }
 
@@ -141,7 +178,7 @@ class ItineraryEdit extends Component {
           </table>
           <React.Fragment>
             <Button variant="outline-primary" onClick={this.add}>Add a location</Button>
-            <Button variant="outline-primary" onClick={this.onSubmitEdit}>Edit Itinerary</Button>
+            <Button variant="outline-primary" onClick={this.onSubmitEdit.bind(this)}>Edit Itinerary</Button>
           </React.Fragment>
         </form>
       </React.Fragment>
