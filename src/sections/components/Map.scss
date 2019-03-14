@@ -1,0 +1,16 @@
+.display-map {
+  height: 100vh;
+  width: 50%;
+}
+
+.location-marker {
+  align-items: center;
+  background: grey;
+  border-radius: 100%;
+  color: white;
+  display: inline-flex;
+  padding: 15px 10px;
+  text-align: center;
+  justify-content: center;
+  transform: translate(-50%, -50%)
+}
