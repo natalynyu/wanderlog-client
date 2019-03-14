@@ -58,7 +58,7 @@ Entity Relationship Diagram
 ------
 https://docs.google.com/drawings/d/1rFQOkek8Geo34VZA_voBQAi_fltmMO9Iyt66vG4GgwU/edit?usp=sharing
 
- Set up & Installation Instructions for Back End
+ Set up & Installation Instructions for Front End
  ------
  * Fork and clone React template - https://git.generalassemb.ly/natalynyu/react-crud
  * Created a git repository
