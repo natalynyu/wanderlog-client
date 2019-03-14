@@ -7,6 +7,8 @@ import pic16 from '../../css/16.png'
 import pic17 from '../../css/17.png'
 import pic18 from '../../css/18.png'
 
+import Map from './Map.js'
+
 class Home extends Component {
   render () {
     return (
@@ -17,6 +19,7 @@ class Home extends Component {
           <h4>Never Stop Exploring</h4>
           <p>We believe that you should always push yourself to learn, grow, and explore. Our aim is to introduce you to new places and connect you with others who have the same set of interests.</p>
         </section>
+        <Map />
         <section className="pictures">
           <img className="balloon" src={balloon} alt="balloon" />
           <img className="snow" src={snow} alt="snow" />
