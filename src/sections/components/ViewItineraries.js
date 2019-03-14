@@ -82,7 +82,7 @@ class ViewItineraries extends Component {
     return (
       <Fragment>
         <section className="view-itineraries-section">
-          <h3>Itineraries</h3>
+          <h4>Itineraries</h4>
           {this.state.itineraries.map(itinerary => (
             this.state.editing === itinerary._id
               ? <ItineraryEdit key={itinerary._id} itinerary={itinerary} user={this.props.user} alert={this.props.alert}

@@ -14,9 +14,9 @@ class Home extends Component {
     return (
       <React.Fragment>
         <section className="welcome">
-          <h3>Hi there!</h3>
+          <h4>Welcome!</h4>
           <p>Wanderlog is an application where you can share your own curated lists of places to go and things to see as well as find hidden gems shared by others. Whether you’re searching for the most romantic restaurants in town to the highest cliff diving spots in the world, Wanderlog will point you in the right direction. </p>
-          <h4>Never Stop Exploring</h4>
+          <h5>Never Stop Exploring</h5>
           <p>We believe that you should always push yourself to learn, grow, and explore. Our aim is to introduce you to new places and connect you with others who have the same set of interests.</p>
         </section>
         <Map />

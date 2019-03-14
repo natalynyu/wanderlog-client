@@ -11,6 +11,8 @@ import pic12 from '../../css/12.png'
 import pic15 from '../../css/15.png'
 import pic17 from '../../css/17.png'
 
+import Button from 'react-bootstrap/Button'
+
 class SignUp extends Component {
   constructor () {
     super()
@@ -78,7 +80,7 @@ class SignUp extends Component {
             placeholder="Confirm Password"
             onChange={this.handleChange}
           />
-          <button type="submit">Sign Up</button>
+          <Button variant="outline-primary" type="submit">Sign Up</Button>
         </form>
         <section className="pictures">
           <img className="pic12" src={pic12} alt="pic12" />
