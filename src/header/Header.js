@@ -32,8 +32,8 @@ const Header = ({ user }) => (
       <h1>Wanderlog</h1>
       <img className="logo" src={logo} alt="Logo" />
       <nav>
-        { alwaysOptions }
         { user && <span>Welcome, {user.email}</span>}
+        { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </nav>
     </header>
