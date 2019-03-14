@@ -15,7 +15,7 @@ class Map extends Component {
       lat: 42.35,
       lng: -71.0574
     },
-    zoom: 5
+    zoom: 15
   };
 
   render () {
@@ -23,6 +23,7 @@ class Map extends Component {
       // Important! Always set the container height explicitly
       <div className="display-map">
         <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.GOOGLE_API_KEY }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
