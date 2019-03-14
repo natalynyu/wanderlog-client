@@ -32,9 +32,9 @@ const Header = ({ user }) => (
       <h1>Wanderlog</h1>
       <img className="logo" src={logo} alt="Logo" />
       <nav>
+        { alwaysOptions }
         { user && <span>Welcome, {user.email}</span>}
         { user ? authenticatedOptions : unauthenticatedOptions }
-        { alwaysOptions }
       </nav>
     </header>
   </React.Fragment>
