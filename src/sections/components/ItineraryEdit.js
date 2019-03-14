@@ -109,10 +109,11 @@ class ItineraryEdit extends Component {
       user
     } = this.props
 
-    const itinerary = {}
-    itinerary.title = this.state.itinerary.title
-    itinerary.locations = this.state.itinerary.locations
-      .filter(location => location.name !== '' || location.address !== '')
+    const itinerary = {
+      ...this.state.itinerary,
+      locations: this.state.itinerary.locations
+        .filter(location => location.name !== '' || location.address !== '')
+    }
     for (const location of itinerary.locations) {
       if (!location.latitude && !location.longitude) {
         const coords = await translateAddress(location.address)
