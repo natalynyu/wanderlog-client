@@ -101,7 +101,7 @@ class CreateItinerary extends Component {
           <label htmlFor="title">Itinerary Title</label>
           <input
             required
-                name="title"
+            name="title"
             value={title}
             type="text"
             placeholder="Best Cliff Diving Spots"
