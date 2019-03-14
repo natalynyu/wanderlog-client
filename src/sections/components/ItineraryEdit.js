@@ -6,7 +6,10 @@ import messages from '../messages'
 import Button from 'react-bootstrap/Button'
 
 import GoogleMapsLoader from 'google-maps'
-GoogleMapsLoader.KEY = process.env.GOOGLE_API_KEY
+
+import config from '../../config'
+
+GoogleMapsLoader.KEY = config.GOOGLE_API_KEY
 
 let _google = null
 

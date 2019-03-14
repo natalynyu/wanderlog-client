@@ -3,6 +3,8 @@ import GoogleMapReact from 'google-map-react'
 
 import './Map.scss'
 
+import config from '../../config'
+
 const Location = ({ text }) => (
   <div className="location-marker">
     {text}
@@ -23,7 +25,7 @@ class Map extends Component {
       // Important! Always set the container height explicitly
       <div className="display-map">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.GOOGLE_API_KEY }}
+          bootstrapURLKeys={{ key: config.GOOGLE_API_KEY }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
