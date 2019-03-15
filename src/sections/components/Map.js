@@ -39,12 +39,16 @@ class Map extends Component {
   };
 
   computeCenterAndZoom () {
+    // if there are no locations, return default zoom and center
     if (!this.state.locations.length) {
       return Map.defaultProps
     }
+    // loop through locations array (an array of objects), get the values of latitude
     const latitudeArray = this.state.locations.map((location) => (
       location.latitude
     ))
+    // taking the things in the array. Math.min takes a variable number of arguments - must convert
+    // the array to multiple arguments... Math.min would take arguments like 2, 3, 4, 5 but not an array
     const minLatitude = Math.min(...latitudeArray)
     const maxLatitude = Math.max(...latitudeArray)
     const avgLatitude = (minLatitude + maxLatitude) / 2
@@ -58,14 +62,19 @@ class Map extends Component {
 
     const latRatio = Math.abs(maxLatitude - minLatitude) / 180
     const lonRatio = Math.abs(maxLongitude - minLongitude) / 360
+    // Use the bigger ratio of the two so that it's visible
     const maxRatio = Math.max(latRatio, lonRatio)
 
     const center = { lat: avgLatitude, lng: avgLongitude }
     // - Math.max with 0 to prevent negatives
     // - Math.floor(...) because zoom must be a whole number and better to floor than ceil (so there is not too little room)
-    // - Use 18 as max zoom and subtract a ratio of 18 determined by 1000 * maxRatio
-    // - We multiply by 1000 as a guess of a good number because i
-    const zoom = Math.max(Math.floor(18 * (1 - (1000 * maxRatio)), 0))
+    // When places are closer together, their maxRatio will be smaller
+    // and then their log will be more negative
+    // and so their negative of the log will be higher (closer to all the way zoomed in).
+    // The 1.5 is a guess factor to make the zooming look reasonable.
+    // 0 is zoomed all the way out. 18 is zoomed all the way in
+    const zoom = Math.max(Math.floor(Math.log(maxRatio) * -1.5), 0)
+    // shorthand for { center: center, zoom: zoom }
     return { center, zoom }
   }
   render () {
