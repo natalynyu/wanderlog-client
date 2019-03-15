@@ -40,8 +40,7 @@ class ViewItineraries extends Component {
         return { itineraries: prevState.itineraries.filter(itinerary => itinerary._id !== id) }
       }))
       .then(() => alert(messages.deleteItinerarySuccess, 'success'))
-      .catch(error => {
-        console.error(error)
+      .catch(e => {
         alert(messages.deleteItineraryFailure, 'danger')
       })
   }
@@ -71,8 +70,7 @@ class ViewItineraries extends Component {
     viewItineraries(this.props.user)
       .then(response => this.setState({ itineraries: response.data.itineraries }))
       .then(() => alert(messages.viewItinerariesSuccess, 'success'))
-      .catch(error => {
-        console.error(error)
+      .catch(e => {
         alert(messages.viewItinerariesFailure, 'danger')
       })
   }

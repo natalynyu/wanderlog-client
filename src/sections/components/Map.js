@@ -45,7 +45,6 @@ class Map extends Component {
     // - Use 18 as max zoom and subtract a ratio of 18 determined by 1000 * maxRatio
     // - We multiply by 1000 as a guess of a good number because i
     const zoom = Math.max(Math.floor(18 * (1 - (1000 * maxRatio)), 0))
-    console.log('values', minLatitude, maxLatitude, minLongitude, maxLongitude, latRatio, lonRatio, maxRatio, center, zoom)
 
     let i = 1
     return (

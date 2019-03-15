@@ -2,7 +2,6 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const createItinerary = (state, user) => {
-  console.log(user)
   return axios({
     method: 'POST',
     url: apiUrl + '/create-itinerary',

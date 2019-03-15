@@ -127,8 +127,7 @@ class ItineraryEdit extends Component {
     updateItinerary(itinerary, user, this.props.itinerary._id)
       .then(() => this.props.onSuccess(itinerary))
       .then(() => alert(messages.updateItinerarySuccess, 'success'))
-      .catch(error => {
-        console.error(error)
+      .catch(e => {
         alert(messages.updateItineraryFailure, 'danger')
       })
   }

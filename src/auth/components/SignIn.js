@@ -38,8 +38,7 @@ class SignIn extends Component {
       .then(res => setUser(res.data.user))
       .then(() => alert(messages.signInSuccess, 'success'))
       .then(() => history.push('/itineraries'))
-      .catch(error => {
-        console.error(error)
+      .catch(e => {
         this.setState({ email: '', password: '' })
         alert(messages.signInFailure, 'danger')
       })

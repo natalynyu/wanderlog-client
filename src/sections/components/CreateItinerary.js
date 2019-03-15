@@ -79,8 +79,7 @@ class CreateItinerary extends Component {
     createItinerary(this.state, user)
       .then(() => history.push('/itineraries'))
       .then(() => alert(messages.createItinerarySuccess, 'success'))
-      .catch(error => {
-        console.error(error)
+      .catch(e => {
         alert(messages.createItineraryFailure, 'danger')
         this.setState({
           title: '',
