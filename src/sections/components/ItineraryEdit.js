@@ -77,14 +77,17 @@ class ItineraryEdit extends Component {
       user
     } = this.props
 
-    const itinerary = await validateItinerary(this.state.itinerary)
-
-    updateItinerary(itinerary, user, this.props.itinerary._id)
-      .then(() => this.props.onSuccess(itinerary))
-      .then(() => alert(messages.updateItinerarySuccess, 'success'))
-      .catch(e => {
-        alert(messages.updateItineraryFailure, 'danger')
-      })
+    try {
+      const itinerary = await validateItinerary(this.state.itinerary)
+      updateItinerary(itinerary, user, this.props.itinerary._id)
+        .then(() => this.props.onSuccess(itinerary))
+        .then(() => alert(messages.updateItinerarySuccess, 'success'))
+        .catch(e => {
+          alert(messages.updateItineraryFailure, 'danger')
+        })
+    } catch (e) {
+      alert(messages.updateItineraryFailure)
+    }
   }
 
   render () {

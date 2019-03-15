@@ -78,18 +78,21 @@ class CreateItinerary extends Component {
       history
     } = this.props
 
-    const itinerary = await validateItinerary(this.state)
-
-    createItinerary(itinerary, user)
-      .then(() => history.push('/itineraries'))
-      .then(() => alert(messages.createItinerarySuccess, 'success'))
-      .catch(e => {
-        alert(messages.createItineraryFailure, 'danger')
-        this.setState({
-          title: '',
-          locations: []
+    try {
+      const itinerary = await validateItinerary(this.state)
+      createItinerary(itinerary, user)
+        .then(() => history.push('/itineraries'))
+        .then(() => alert(messages.createItinerarySuccess, 'success'))
+        .catch(e => {
+          alert(messages.createItineraryFailure, 'danger')
+          this.setState({
+            title: '',
+            locations: []
+          })
         })
-      })
+    } catch (e) {
+      alert(messages.createItineraryFailure, 'danger')
+    }
   }
 
   render () {
