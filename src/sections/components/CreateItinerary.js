@@ -69,7 +69,7 @@ class CreateItinerary extends Component {
     })
   }
 
-  onCreateItinerary (event) {
+  async onCreateItinerary (event) {
     event.preventDefault()
 
     const {
@@ -78,7 +78,7 @@ class CreateItinerary extends Component {
       history
     } = this.props
 
-    const itinerary = validateItinerary(this.state)
+    const itinerary = await validateItinerary(this.state)
 
     createItinerary(itinerary, user)
       .then(() => history.push('/itineraries'))

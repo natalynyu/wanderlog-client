@@ -77,7 +77,7 @@ class ItineraryEdit extends Component {
       user
     } = this.props
 
-    const itinerary = validateItinerary(this.state.itinerary)
+    const itinerary = await validateItinerary(this.state.itinerary)
 
     updateItinerary(itinerary, user, this.props.itinerary._id)
       .then(() => this.props.onSuccess(itinerary))
