@@ -19,6 +19,17 @@ const loader = async (keys) => {
 }
 
 class Map extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      locations: props.locations.filter((location) => {
+        if (!location.latitude || !location.longitude) {
+          return false
+        }
+        return true
+      })
+    }
+  }
   static defaultProps = {
     center: {
       lat: 42.35,
@@ -27,15 +38,18 @@ class Map extends Component {
     zoom: 10
   };
 
-  render () {
-    const latitudeArray = this.props.locations.map((location) => (
+  computeCenterAndZoom () {
+    if (!this.state.locations.length) {
+      return Map.defaultProps
+    }
+    const latitudeArray = this.state.locations.map((location) => (
       location.latitude
     ))
     const minLatitude = Math.min(...latitudeArray)
     const maxLatitude = Math.max(...latitudeArray)
     const avgLatitude = (minLatitude + maxLatitude) / 2
 
-    const longitudeArray = this.props.locations.map((location) => (
+    const longitudeArray = this.state.locations.map((location) => (
       location.longitude
     ))
     const minLongitude = Math.min(...longitudeArray)
@@ -52,7 +66,10 @@ class Map extends Component {
     // - Use 18 as max zoom and subtract a ratio of 18 determined by 1000 * maxRatio
     // - We multiply by 1000 as a guess of a good number because i
     const zoom = Math.max(Math.floor(18 * (1 - (1000 * maxRatio)), 0))
-
+    return { center, zoom }
+  }
+  render () {
+    const { center, zoom } = this.computeCenterAndZoom()
     let i = 1
     return (
       <div className="display-map">
@@ -63,7 +80,7 @@ class Map extends Component {
           // The GoogleMapReact component expects a function which returns a promise resolving to the google.maps object
           googleMapLoader={loader}
         >
-          {this.props.locations.map((location) => (
+          {this.state.locations.map((location) => (
             <Location
               key={i++} lat={location.latitude} lng={location.longitude} text={location.name}
             />
