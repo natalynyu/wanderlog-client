@@ -112,7 +112,7 @@ class ViewItineraries extends Component {
                     <Button className="delete-button" variant="outline-danger" onClick={this.onDeleteItinerary.bind(this, itinerary._id)}>Delete</Button>
                   </Fragment> : ''
                 }
-                <Map latitude={itinerary.locations[0].latitude} longitude={itinerary.locations[0].longitude} locationName={itinerary.locations[0].name}/>
+                <Map locations={itinerary.locations} />
               </Fragment>
           ))}
         </section>
