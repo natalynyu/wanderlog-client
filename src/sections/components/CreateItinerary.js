@@ -80,7 +80,17 @@ class CreateItinerary extends Component {
 
     try {
       const itinerary = await validateItinerary(this.state)
-      createItinerary(itinerary, user)
+      // only include properties that we intend to send
+      const reducedItinerary = {
+        title: itinerary.title,
+        locations: itinerary.locations.map(location => ({
+          name: location.name,
+          address: location.address,
+          latitude: location.latitude,
+          longitude: location.longitude
+        }))
+      }
+      createItinerary(reducedItinerary, user)
         .then(() => history.push('/itineraries'))
         .then(() => alert(messages.createItinerarySuccess, 'success'))
         .catch(e => {

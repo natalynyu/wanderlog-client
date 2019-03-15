@@ -79,7 +79,17 @@ class ItineraryEdit extends Component {
 
     try {
       const itinerary = await validateItinerary(this.state.itinerary)
-      updateItinerary(itinerary, user, this.props.itinerary._id)
+      // only include properties that we intend to send
+      const reducedItinerary = {
+        title: itinerary.title,
+        locations: itinerary.locations.map(location => ({
+          name: location.name,
+          address: location.address,
+          latitude: location.latitude,
+          longitude: location.longitude
+        }))
+      }
+      updateItinerary(reducedItinerary, user, this.props.itinerary._id)
         .then(() => this.props.onSuccess(itinerary))
         .then(() => alert(messages.updateItinerarySuccess, 'success'))
         .catch(e => {
