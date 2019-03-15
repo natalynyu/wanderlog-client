@@ -86,7 +86,7 @@ class ItineraryEdit extends Component {
           alert(messages.updateItineraryFailure, 'danger')
         })
     } catch (e) {
-      alert(messages.updateItineraryFailure)
+      alert(messages.updateItineraryFailure, 'danger')
     }
   }
 
