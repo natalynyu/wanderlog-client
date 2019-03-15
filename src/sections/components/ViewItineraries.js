@@ -6,6 +6,7 @@ import { viewItineraries, deleteItinerary } from '../api'
 import messages from '../messages'
 
 import './ViewItineraries.scss'
+import Map from './Map.js'
 import Button from 'react-bootstrap/Button'
 
 import pic27 from '../../css/27.png'
@@ -111,6 +112,7 @@ class ViewItineraries extends Component {
                     <Button className="delete-button" variant="outline-danger" onClick={this.onDeleteItinerary.bind(this, itinerary._id)}>Delete</Button>
                   </Fragment> : ''
                 }
+                <Map latitude={itinerary.locations[0].latitude} longitude={itinerary.locations[0].longitude} locationName={itinerary.locations[0].name}/>
               </Fragment>
           ))}
         </section>
