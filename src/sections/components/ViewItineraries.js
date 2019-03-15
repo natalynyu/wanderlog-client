@@ -88,28 +88,30 @@ class ViewItineraries extends Component {
                 onSuccess={this.onEditSuccess} />
               : <Fragment key={itinerary._id}>
                 <h5>{itinerary.title}</h5>
-                <table className="itinerary-table">
-                  <tbody>
-                    <tr>
-                      <th>Destination</th>
-                      <th>Address</th>
-                    </tr>
-                    {itinerary.locations.map((location) => (
-                      <Fragment key={location._id}>
-                        <tr>
-                          <td>{location.name}</td>
-                          <td>{location.address}</td>
-                        </tr>
-                      </Fragment>
-                    ))}
-                  </tbody>
-                </table>
-                {this.props.user._id === itinerary.owner
-                  ? <Fragment>
-                    <Button className="edit-button" variant="outline-info" onClick={this.onEditItinerary.bind(this, itinerary._id)}>Edit</Button>
-                    <Button className="delete-button" variant="outline-danger" onClick={this.onDeleteItinerary.bind(this, itinerary._id)}>Delete</Button>
-                  </Fragment> : ''
-                }
+                <div className="itinerary-table-container">
+                  <table className="itinerary-table">
+                    <tbody>
+                      <tr>
+                        <th>Destination</th>
+                        <th>Address</th>
+                      </tr>
+                      {itinerary.locations.map((location) => (
+                        <Fragment key={location._id}>
+                          <tr>
+                            <td>{location.name}</td>
+                            <td>{location.address}</td>
+                          </tr>
+                        </Fragment>
+                      ))}
+                    </tbody>
+                  </table>
+                  {this.props.user._id === itinerary.owner
+                    ? <Fragment>
+                      <Button className="edit-button" variant="outline-info" onClick={this.onEditItinerary.bind(this, itinerary._id)}>Edit</Button>
+                      <Button className="delete-button" variant="outline-danger" onClick={this.onDeleteItinerary.bind(this, itinerary._id)}>Delete</Button>
+                    </Fragment> : ''
+                  }
+                </div>
                 <Map locations={itinerary.locations} />
               </Fragment>
           ))}

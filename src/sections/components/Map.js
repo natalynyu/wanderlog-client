@@ -24,6 +24,7 @@ class Map extends Component {
     this.state = {
       locations: props.locations.filter((location) => {
         if (!location.latitude || !location.longitude) {
+          // returning false means don't keep that record & don't try to find it on map
           return false
         }
         return true
