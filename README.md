@@ -62,5 +62,5 @@ https://docs.google.com/drawings/d/1rFQOkek8Geo34VZA_voBQAi_fltmMO9Iyt66vG4GgwU/
  ------
  * Fork and clone repository
  * Checkout to a new branch
- * Download dependencies using command npm install in terminal
- * Use the command npm start in terminal to run application locally
+ * Download dependencies using command 'npm install' in terminal
+ * Use the command 'npm start' in terminal to run application locally
