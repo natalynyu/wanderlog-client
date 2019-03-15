@@ -14,6 +14,8 @@ import pic24 from '../../css/24.png'
 import pic25 from '../../css/25.png'
 import pic26 from '../../css/26.png'
 
+import validateItinerary from '../lib/validateItinerary'
+
 class CreateItinerary extends Component {
   constructor (props) {
     super(props)
@@ -76,7 +78,9 @@ class CreateItinerary extends Component {
       history
     } = this.props
 
-    createItinerary(this.state, user)
+    const itinerary = validateItinerary(this.state)
+
+    createItinerary(itinerary, user)
       .then(() => history.push('/itineraries'))
       .then(() => alert(messages.createItinerarySuccess, 'success'))
       .catch(e => {

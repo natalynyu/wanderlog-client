@@ -5,42 +5,7 @@ import messages from '../messages'
 
 import Button from 'react-bootstrap/Button'
 
-import GoogleMapsLoader from 'google-maps'
-
-import config from '../../config'
-
-GoogleMapsLoader.KEY = config.GOOGLE_API_KEY
-
-let _google = null
-
-function getGoogle () {
-  return new Promise((resolve, reject) => {
-    if (_google != null) {
-      resolve(_google)
-      return
-    }
-    GoogleMapsLoader.load(function (google) {
-      _google = google
-      resolve(_google)
-    })
-  })
-}
-
-function translateAddress (address) {
-  return new Promise(async (resolve, reject) => {
-    const google = await getGoogle()
-    const geocoder = new google.maps.Geocoder()
-    // geocoder.geocode makes an AJAX request - we give it a callback function
-    geocoder.geocode({ address: address }, (results, status) => {
-      if (status !== 'OK') {
-        reject(new Error(`Failed to translate address: status: ${status}`))
-        return
-      }
-      const location = results[0].geometry.location
-      resolve({ latitude: location.lat(), longitude: location.lng() })
-    })
-  })
-}
+import validateItinerary from '../lib/validateItinerary'
 
 class ItineraryEdit extends Component {
   constructor (props) {
@@ -112,18 +77,8 @@ class ItineraryEdit extends Component {
       user
     } = this.props
 
-    const itinerary = {
-      ...this.state.itinerary,
-      locations: this.state.itinerary.locations
-        .filter(location => location.name !== '' || location.address !== '')
-    }
-    for (const location of itinerary.locations) {
-      if (!location.latitude && !location.longitude) {
-        const coords = await translateAddress(location.address)
-        location.latitude = coords.latitude
-        location.longitude = coords.longitude
-      }
-    }
+    const itinerary = validateItinerary(this.state.itinerary)
+
     updateItinerary(itinerary, user, this.props.itinerary._id)
       .then(() => this.props.onSuccess(itinerary))
       .then(() => alert(messages.updateItinerarySuccess, 'success'))
