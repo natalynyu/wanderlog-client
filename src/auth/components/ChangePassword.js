@@ -31,10 +31,11 @@ class ChangePassword extends Component {
   onChangePassword = event => {
     event.preventDefault()
 
-    const { alert, user } = this.props
+    const { alert, history, user } = this.props
 
     changePassword(this.state, user)
       .then(() => alert(messages.changePasswordSuccess, 'success'))
+      .then(() => history.push('/'))
       .catch(e => {
         this.setState({ oldPassword: '', newPassword: '' })
         alert(messages.changePasswordFailure, 'danger')
