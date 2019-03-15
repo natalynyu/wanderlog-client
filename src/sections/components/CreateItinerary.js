@@ -142,7 +142,11 @@ class CreateItinerary extends Component {
                   </td>
                 </tr>
               )}
-              <Button variant="outline-secondary" onClick={this.add}>Add a location</Button>
+              <tr>
+                <td>
+                  <Button variant="outline-secondary" onClick={this.add}>Add a location</Button>
+                </td>
+              </tr>
             </tbody>
           </table>
           <React.Fragment>
