@@ -13,7 +13,6 @@ User Stories
 * New user can sign up
 * Signed up user can sign in, change password, and sign out
 * All users can view destination lists
-* Signed in users can rate lists
 * Signed in users can create new destination lists
 * Signed in users can edit and delete lists they created
 
@@ -61,6 +60,7 @@ https://docs.google.com/drawings/d/1rFQOkek8Geo34VZA_voBQAi_fltmMO9Iyt66vG4GgwU/
 
  Set up & Installation Instructions for Front End
  ------
- * Fork and clone React template - https://git.generalassemb.ly/natalynyu/react-crud
- * Created a git repository
- * Made initial commit on Github
+ * Fork and clone repository
+ * Checkout to a new branch
+ * Download dependencies using command npm install in terminal
+ * Use the command npm start in terminal to run application locally
