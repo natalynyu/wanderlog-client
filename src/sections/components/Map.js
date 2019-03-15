@@ -55,12 +55,12 @@ class Map extends Component {
 
     let i = 1
     return (
-      // Important! Always set the container height explicitly
       <div className="display-map">
         <GoogleMapReact
           bootstrapURLKeys={{ key: config.GOOGLE_API_KEY }}
           defaultCenter={center}
           defaultZoom={zoom}
+          // The GoogleMapReact component expects a function which returns a promise resolving to the google.maps object
           googleMapLoader={loader}
         >
           {this.props.locations.map((location) => (
