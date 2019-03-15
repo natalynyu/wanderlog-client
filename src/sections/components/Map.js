@@ -5,11 +5,18 @@ import './Map.scss'
 
 import config from '../../config'
 
+import getGoogle from '../lib/getGoogle'
+
 const Location = ({ text }) => (
   <div className="location-marker">
     {text}
   </div>
 )
+
+const loader = async (keys) => {
+  const google = await getGoogle()
+  return google.maps
+}
 
 class Map extends Component {
   static defaultProps = {
@@ -54,6 +61,7 @@ class Map extends Component {
           bootstrapURLKeys={{ key: config.GOOGLE_API_KEY }}
           defaultCenter={center}
           defaultZoom={zoom}
+          googleMapLoader={loader}
         >
           {this.props.locations.map((location) => (
             <Location
