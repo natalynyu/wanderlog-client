@@ -29,15 +29,13 @@ async function validateItinerary (i) {
     if (!String(location.address).trim()) {
       throw new Error('Missing location address')
     }
-    if (!location.latitude && !location.longitude) {
-      try {
-        const coords = await translateAddress(location.address)
-        location.latitude = coords.latitude
-        location.longitude = coords.longitude
-      } catch (e) {
-        // If we failed to translate the address with Google, keep going
-        // since there's nothing we can do with a bad address
-      }
+    try {
+      const coords = await translateAddress(location.address)
+      location.latitude = coords.latitude
+      location.longitude = coords.longitude
+    } catch (e) {
+      // If we failed to translate the address with Google, keep going
+      // since there's nothing we can do with a bad address
     }
   }
   return itinerary
